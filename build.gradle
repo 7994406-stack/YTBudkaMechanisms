@@ -20,16 +20,6 @@ java {
 
 minecraft {
     mappings channel: 'official', version: '1.20.1'
-    copyIdeResources = true
-    
-    runs {
-        client {
-            workingDirectory project.file('run')
-        }
-        server {
-            workingDirectory project.file('run')
-        }
-    }
 }
 
 sourceSets.main {
@@ -47,27 +37,22 @@ dependencies {
 
 jar {
     archivesBaseName = 'YTBudkaMechanisms'
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     
     manifest {
         attributes([
             "Specification-Title": "mechanisms",
             "Specification-Vendor": "YTBudka_mx",
-            "Specification-Version": "1",
             "Implementation-Title": "YTBudka Mechanisms",
-            "Implementation-Version": "1.0.0",
-            "Implementation-Vendor": "YTBudka_mx"
+            "Implementation-Version": "1.0.0"
         ])
     }
-    
-    from sourceSets.main.output
 }
 
 processResources {
-    filesMatching("META-INF/mods.toml") {
-        expand "version": project.version
-    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
-tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8'
+tasks.withType(Copy).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
