@@ -20,16 +20,6 @@ minecraft {
     mappings channel: 'official', version: '1.20.1'
 }
 
-sourceSets.main {
-    java { srcDir 'src/main/java' }
-    resources { srcDir 'src/main/resources' }
-}
-
-repositories {
-    maven { url = 'https://maven.minecraftforge.net' }
-    mavenCentral()
-}
-
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
 }
@@ -39,13 +29,14 @@ jar {
         attributes([
             "Specification-Title": "mechanisms",
             "Specification-Vendor": "YTBudka_mx",
+            "Specification-Version": "1",
             "Implementation-Title": "YTBudka Mechanisms",
-            "Implementation-Version": "1.0.0"
+            "Implementation-Version": "1.0.0",
+            "Implementation-Vendor": "YTBudka_mx"
         ])
     }
-    from sourceSets.main.output
 }
 
-processResources {
+tasks.withType(ProcessResources).configureEach {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }

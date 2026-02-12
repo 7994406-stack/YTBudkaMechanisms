@@ -7,7 +7,7 @@ modId="mechanisms"
 version="1.0.0"
 displayName="YTBudka Mechanisms"
 authors="YTBudka_mx"
-description="Tech Mod"
+description="Industrial Tech Mod"
 
 [[dependencies.mechanisms]]
     modId="forge"
