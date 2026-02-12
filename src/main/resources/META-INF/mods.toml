@@ -7,7 +7,7 @@ modId="mechanisms"
 version="1.0.0"
 displayName="YTBudka Mechanisms"
 authors="YTBudka_mx"
-description="Industrial technology mod with energy system and machines"
+description="Industrial mod with energy and machines"
 
 [[dependencies.mechanisms]]
     modId="forge"

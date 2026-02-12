@@ -14,12 +14,16 @@ apply plugin: 'java'
 group = 'com.ytbudka'
 version = '1.0.0'
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+java {
+    toolchain.languageVersion = JavaLanguageVersion.of(17)
+}
 
 minecraft {
     mappings channel: 'official', version: '1.20.1'
+    copyIdeResources = true
 }
 
+// Принудительно включаем папки в сборку
 sourceSets.main {
     java { srcDir 'src/main/java' }
     resources { srcDir 'src/main/resources' }
@@ -34,11 +38,16 @@ jar {
         attributes([
             "Specification-Title": "mechanisms",
             "Specification-Vendor": "YTBudka_mx",
+            "Specification-Version": "1",
             "Implementation-Title": "YTBudka Mechanisms",
-            "Implementation-Version": "1.0.0"
+            "Implementation-Version": "1.0.0",
+            "Implementation-Vendor": "YTBudka_mx"
         ])
     }
-    from { sourceSets.main.output }
+    // Включаем всё содержимое в JAR
+    from {
+        sourceSets.main.output
+    }
 }
 
 tasks.withType(Copy).configureEach {
