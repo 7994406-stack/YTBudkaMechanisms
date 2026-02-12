@@ -1,6 +1,6 @@
 {
   "itemGroup.mechanisms": "YTBudka Mechanisms",
+  "block.mechanisms.coal_generator": "Coal Generator",
   "energy.mechanisms.fe": "%s FE",
-  "energy.mechanisms.stored": "Energy: %s / %s FE",
-  "gui.mechanisms.progress": "Progress: %s%%"
+  "energy.mechanisms.stored": "Energy: %s / %s FE"
 }
