@@ -20,23 +20,154 @@ minecraft {
     mappings channel: 'official', version: '1.20.1'
 }
 
+// ПРИНУДИТЕЛЬНОЕ ВКЛЮЧЕНИЕ ПАПОК
+sourceSets.main {
+    java { srcDir 'src/main/java' }
+    resources { srcDir 'src/main/resources' }
+}
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
 }
 
 jar {
-    archivesBaseName = 'YTBudkaMechanisms'
     manifest {
         attributes([
             "Specification-Title": "mechanisms",
             "Specification-Vendor": "YTBudka_mx",
+            "Specification-Version": "1",
             "Implementation-Title": "YTBudka Mechanisms",
-            "Implementation-Version": "1.0.0"
+            "Implementation-Version": "1.0.0",
+            "Implementation-Vendor": "YTBudka_mx"
         ])
     }
 }
 
-// Это гарантирует, что ресурсы (включая META-INF) попадут в JAR
+// ВАЖНО: Стратегия копирования, чтобы файлы не терялись
+tasks.withType(ProcessResources).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+cat > build.gradle << 'EOF'
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: false
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'java'
+
+group = 'com.ytbudka'
+version = '1.0.0'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+}
+
+// ПРИНУДИТЕЛЬНОЕ ВКЛЮЧЕНИЕ ПАПОК
+sourceSets.main {
+    java { srcDir 'src/main/java' }
+    resources { srcDir 'src/main/resources' }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": "mechanisms",
+            "Specification-Vendor": "YTBudka_mx",
+            "Specification-Version": "1",
+            "Implementation-Title": "YTBudka Mechanisms",
+            "Implementation-Version": "1.0.0",
+            "Implementation-Vendor": "YTBudka_mx"
+        ])
+    }
+}
+
+// ВАЖНО: Стратегия копирования, чтобы файлы не терялись
+tasks.withType(ProcessResources).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+git add .
+git commit -m "Fix mods.toml location and build script"
+git push --force
+
+git add .
+git commit -m "Fix mods.toml location and build script"
+git push --force
+-cd ~/YTBudkaMechanisms
+
+cat > build.gradle << 'EOF'
+buildscript {
+    repositories {
+        maven { url = 'https://maven.minecraftforge.net' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.0.+', changing: false
+    }
+}
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'java'
+
+group = 'com.ytbudka'
+version = '1.0.0'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
+
+minecraft {
+    mappings channel: 'official', version: '1.20.1'
+    // Копируем ресурсы в папку сборки, чтобы они точно попали в JAR
+    copyIdeResources = true
+}
+
+// Указываем явно, где лежат ресурсы
+sourceSets.main {
+    java { srcDir 'src/main/java' }
+    resources { srcDir 'src/main/resources' }
+}
+
+repositories {
+    maven { url = 'https://maven.minecraftforge.net' }
+    mavenCentral()
+}
+
+dependencies {
+    // Используем стабильную версию Forge
+    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": "mechanisms",
+            "Specification-Vendor": "YTBudka_mx",
+            "Specification-Version": "1",
+            "Implementation-Title": "YTBudka Mechanisms",
+            "Implementation-Version": "1.0.0",
+            "Implementation-Vendor": "YTBudka_mx",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+    // ВАЖНО: Включаем скомпилированные классы и ресурсы в JAR
+    from sourceSets.main.output
+}
+
+// Настройка обработки ресурсов (чтобы mods.toml точно попал куда надо)
 processResources {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+// Настройка кодировки (чтобы русский текст не ломался)
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }
