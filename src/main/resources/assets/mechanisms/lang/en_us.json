@@ -1,0 +1,6 @@
+{
+  "itemGroup.mechanisms": "YTBudka Mechanisms",
+  "energy.mechanisms.fe": "%s FE",
+  "energy.mechanisms.stored": "Energy: %s / %s FE",
+  "gui.mechanisms.progress": "Progress: %s%%"
+}
