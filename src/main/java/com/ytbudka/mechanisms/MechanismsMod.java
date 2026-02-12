@@ -4,8 +4,8 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -22,9 +22,10 @@ public class MechanismsMod {
     public static final RegistryObject<CreativeModeTab> MECHANISMS_TAB = CREATIVE_TABS.register("mechanisms_tab",
         () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup.mechanisms"))
-            .icon(() -> new ItemStack(Items.REDSTONE))
+            .icon(() -> new ItemStack(ModBlocks.COAL_GENERATOR.get()))
             .displayItems((params, output) -> {
-                // Здесь будем добавлять наши блоки
+                // Добавляем все блоки мода
+                output.accept(ModItems.COAL_GENERATOR_ITEM.get());
             })
             .build());
     
@@ -35,6 +36,7 @@ public class MechanismsMod {
         ModBlocks.register(modEventBus);
         ModItems.register(modEventBus);
         ModBlockEntities.register(modEventBus);
+        ModMenuTypes.register(modEventBus);
         
         MinecraftForge.EVENT_BUS.register(this);
     }
