@@ -14,21 +14,10 @@ apply plugin: 'java'
 group = 'com.ytbudka'
 version = '1.0.0'
 
-java {
-    toolchain.languageVersion = JavaLanguageVersion.of(17)
-}
+java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 minecraft {
     mappings channel: 'official', version: '1.20.1'
-}
-
-sourceSets.main {
-    java { srcDir 'src/main/java' }
-    resources { srcDir 'src/main/resources' }
-}
-
-repositories {
-    maven { url = 'https://maven.minecraftforge.net' }
 }
 
 dependencies {
@@ -37,8 +26,6 @@ dependencies {
 
 jar {
     archivesBaseName = 'YTBudkaMechanisms'
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-    
     manifest {
         attributes([
             "Specification-Title": "mechanisms",
@@ -49,10 +36,7 @@ jar {
     }
 }
 
+// Это гарантирует, что ресурсы (включая META-INF) попадут в JAR
 processResources {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-}
-
-tasks.withType(Copy).configureEach {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
 }
