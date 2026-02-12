@@ -21,19 +21,33 @@ java {
 minecraft {
     mappings channel: 'official', version: '1.20.1'
     copyIdeResources = true
+    
+    runs {
+        client {
+            workingDirectory project.file('run')
+        }
+        server {
+            workingDirectory project.file('run')
+        }
+    }
 }
 
-// Принудительно включаем папки в сборку
 sourceSets.main {
     java { srcDir 'src/main/java' }
     resources { srcDir 'src/main/resources' }
 }
 
+repositories {
+    maven { url = 'https://maven.minecraftforge.net' }
+}
+
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.20.1-47.4.0'
+    minecraft 'net.minecraftforge:forge:1.20.1-47.2.0'
 }
 
 jar {
+    archivesBaseName = 'YTBudkaMechanisms'
+    
     manifest {
         attributes([
             "Specification-Title": "mechanisms",
@@ -44,12 +58,16 @@ jar {
             "Implementation-Vendor": "YTBudka_mx"
         ])
     }
-    // Включаем всё содержимое в JAR
-    from {
-        sourceSets.main.output
+    
+    from sourceSets.main.output
+}
+
+processResources {
+    filesMatching("META-INF/mods.toml") {
+        expand "version": project.version
     }
 }
 
-tasks.withType(Copy).configureEach {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
 }

@@ -7,18 +7,18 @@ modId="mechanisms"
 version="1.0.0"
 displayName="YTBudka Mechanisms"
 authors="YTBudka_mx"
-description="Industrial mod with energy and machines"
+description="Industrial mod with machines and energy"
 
 [[dependencies.mechanisms]]
     modId="forge"
     mandatory=true
-    versionRange="[47,)"
+    versionRange="[47.2,)"
     ordering="NONE"
     side="BOTH"
 
 [[dependencies.mechanisms]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20.1,1.21)"
+    versionRange="[1.20.1,1.20.2)"
     ordering="NONE"
     side="BOTH"
